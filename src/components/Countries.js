@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Filter from "./filter";
+
 
 const url = "https://restcountries.com/v2/all";
 
@@ -8,6 +9,8 @@ export default function Countries() {
   const [countries, setCountries] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [regionInput, setRegionInput] = useState("All");
+
 
   useEffect(() => {
     const fetchCountryData = async () => {
@@ -18,21 +21,6 @@ export default function Countries() {
     fetchCountryData();
   }, []);
 
-  const searchCountries = (searchValue) => {
-    setSearchInput(searchValue);
-
-    if (searchInput) {
-      const filteredCoutries = countries.filter((country) =>
-        Object.values(country)
-          .join("")
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      );
-      setFiltered(filteredCoutries);
-    } else {
-      setFiltered(countries);
-    }
-  };
 
   const removeCountry = (numericCode) => {
     const newCountry = countries.filter(
@@ -41,42 +29,75 @@ export default function Countries() {
     setCountries(newCountry);
   };
 
+  const regions = useMemo(
+    () =>
+      countries
+        .map((country) => country.region)
+        .reduce(
+          (prev, curr) => {
+            if (!prev.includes(curr)) {
+              return [curr, ...prev];
+            }
+            return prev;
+          },
+          ["All"]
+        ),
+    [countries]
+  );
+
+  const filteredCountries = useCallback(() => {
+    const filtered = countries.filter(
+      (country) =>
+        (country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+          country.capital?.toLowerCase().includes(searchInput.toLowerCase())) &&
+        country.region.includes(regionInput === "All" ? "" : regionInput)
+    );
+
+    return filtered;
+  }, [countries, searchInput, regionInput]);
+
+  
   return (
     <>
       <Filter
-        searchCountries={searchCountries}
         searchInput={searchInput}
         setCountries={setCountries}
-      />
-      {searchInput.length > 0 ? (
+        regions={regions}
+        setSearchInput={setSearchInput}
+        regionInput={regionInput}
+        setRegionInput={setRegionInput}      
+        />
+   
+      {filteredCountries().length === 0 && <p>No hay resultados</p>}
+
+      {filteredCountries().map((country) => (
+        
         <section className="countries">
-          {filtered.map(
-            ({ numericCode, name, population, region, capital, flag }) => (
-              <article key={numericCode}>
+              <article key={country.numericCode}>
                 <div>
-                  <img src={flag} alt={name}></img>
+                  <img src={country.flag} alt={country.name}></img>
                   <div className="details">
-                    <h3 className="country-name">{name}</h3>
+                    <h3 className="country-name">{country.name}</h3>
                     <h4>
-                      Population: <span>{population}</span>
+                      Population: <span>{country.population}</span>
                     </h4>
                     <h4>
-                      Region: <span>{region}</span>
+                      Region: <span>{country.region}</span>
                     </h4>
                     <h4>
-                      Capital: <span>{capital}</span>
+                      Capital: <span>{country.capital}</span>
                     </h4>
                     <div className="buttons">
                       <Link
-                        to={`/countries/${name}`}
+                        to={`/countries/${country.name}`}
                         className="btn"
-                        key={numericCode}
+                        key={country.numericCode}
                       >
                         Learn more
                       </Link>
                       <button
                         className="btn"
-                        onClick={() => removeCountry(numericCode)}
+                        onClick={() => removeCountry(country.numericCode)}
                       >
                         Remove Country
                       </button>
@@ -84,51 +105,8 @@ export default function Countries() {
                   </div>
                 </div>
               </article>
-            )
-          )}
         </section>
-      ) : (
-        <section className="countries">
-          {countries.map(
-                ({ numericCode, name, population, region, capital, flag }) => (
-                  <article key={numericCode}>
-                    <div>
-                      <img src={flag} alt={name}></img>
-                      <div className="details">
-                        <h3 className="country-name">{name}</h3>
-                        <h4>
-                          Population: <span>{population}</span>
-                        </h4>
-                        <h4>
-                          Region: <span>{region}</span>
-                        </h4>
-                        <h4>
-                          Capital: <span>{capital}</span>
-                        </h4>
-                        <div className="buttons">
-                          <Link
-                            to={`/countries/${name}`}
-                            className="btn"
-                            key={numericCode}
-                          >
-                            Learn more
-                          </Link>
-                          <button
-                            className="btn"
-                            onClick={() => removeCountry(numericCode)}
-                          >
-                            Remove Country
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                )
-              )
-            }
-          
-        </section>
-      )}
+      ))}
     </>
   );
 }
