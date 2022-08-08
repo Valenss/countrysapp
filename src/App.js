@@ -7,7 +7,7 @@ function App() {
   return (
      <>
         <Header />
-        <Routes  basename={process.env.PUBLIC_URL}>
+        <Routes  >
           <Route exact path='/'element={<Countries />} />
         </Routes>
         <Routes>
