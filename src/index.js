@@ -1,6 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import "./index.css"
 import App from "./App"
 import { BrowserRouter } from "react-router-dom"
 import { createRoot } from 'react-dom/client';
@@ -13,5 +12,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>,
 );
-
-// falta baseline al browserouter

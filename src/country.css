@@ -2,10 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 .country{
     padding: 50px;
+    height: 100vh;
+}
+a{
+    text-decoration: none;
 }
 
 .btn-light{
@@ -14,6 +19,10 @@
 }
 
 
+#light .country, #light .borders-li , #light .btn-light{
+background-color:var(--light-mode-background) ;
+color: var(--light-mode-text);
+}
 .country article .country-details div{
     margin: 30px 0;
 }
@@ -42,46 +51,42 @@
     flex-wrap: wrap;
 }
 
-.country article .borders ul{
+.country article .borders ul li{
     margin:10px;
     background-color: var(--article-color);
     padding: 5px 20px;
     border-radius: 3px;
     box-shadow: 0 5px 10px hsla(200, 15%, 8%, 0.5);
+    color: white;
+    font-size: 12px;
 }
 .country article .borders ul.light-theme{
     background-color: var(--light-mode-background);
 }
-@media (min-width: 992px) {
+
+.no-borders{
+    margin-top: 10px;
+}
+
+.country-flag{
+    max-width: 100%;
+}
+
+@media (min-width: 892px) {
     
     .country article .country-inner{
         display: grid;
         grid-template-columns: repeat(2,1fr);
-        gap: 20px;
+        gap: 50px;
+        justify-content:center;
+        align-items: center;
     }
 
     .country article .country-details{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+        align-items: center;
     }
 }
 
-@media (min-width: 1200px) {
-    .country{
-        max-width: 1100px;
-        margin: auto;
-    }    
-}
-@media (min-width: 1366px) {
-    .country{
-        max-width: 1200px;
-        margin: auto;
-    }    
-}
-@media (min-width: 1440px) {
-    .country{
-        max-width: 1400px;
-        margin: auto;
-    }    
-}

@@ -1,16 +1,20 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useParams,
+} from "react";
 import { Link } from "react-router-dom";
+import Country from "./Country";
 import Filter from "./filter";
-
 
 const url = "https://restcountries.com/v2/all";
 
 export default function Countries() {
   const [countries, setCountries] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [regionInput, setRegionInput] = useState("All");
-
 
   useEffect(() => {
     const fetchCountryData = async () => {
@@ -21,13 +25,6 @@ export default function Countries() {
     fetchCountryData();
   }, []);
 
-
-  const removeCountry = (numericCode) => {
-    const newCountry = countries.filter(
-      (country) => country.numericCode !== numericCode
-    );
-    setCountries(newCountry);
-  };
 
   const regions = useMemo(
     () =>
@@ -56,7 +53,6 @@ export default function Countries() {
     return filtered;
   }, [countries, searchInput, regionInput]);
 
-  
   return (
     <>
       <Filter
@@ -65,48 +61,45 @@ export default function Countries() {
         regions={regions}
         setSearchInput={setSearchInput}
         regionInput={regionInput}
-        setRegionInput={setRegionInput}      
-        />
-   
-      {filteredCountries().length === 0 && <p>No hay resultados</p>}
+        setRegionInput={setRegionInput}
+      />
 
-      {filteredCountries().map((country) => (
-        
-        <section className="countries">
-              <article key={country.numericCode}>
-                <div>
-                  <img src={country.flag} alt={country.name}></img>
-                  <div className="details">
-                    <h3 className="country-name">{country.name}</h3>
-                    <h4>
-                      Population: <span>{country.population}</span>
-                    </h4>
-                    <h4>
-                      Region: <span>{country.region}</span>
-                    </h4>
-                    <h4>
-                      Capital: <span>{country.capital}</span>
-                    </h4>
-                    <div className="buttons">
-                      <Link
-                        to={`/countries/${country.name}`}
-                        className="btn"
-                        key={country.numericCode}
-                      >
-                        Learn more
-                      </Link>
-                      <button
-                        className="btn"
-                        onClick={() => removeCountry(country.numericCode)}
-                      >
-                        Remove Country
-                      </button>
-                    </div>
-                  </div>
+      <section className="countries">
+       
+          {filteredCountries().length === 0 && <p>No hay resultados</p>}
+
+          {filteredCountries().map((country) => (
+            
+            <article key={country.numericCode}>
+               <Link
+          to={`/country/${country.name}`}
+         
+          key={country.numericCode}
+        >
+              <div>
+                <img
+                  className="flag"
+                  src={country.flag}
+                  alt={country.name}
+                ></img>
+                <div className="details">
+                  <h3 className="country-name">{country.name}</h3>
+                  <h4>
+                    Population: <span>{country.population}</span>
+                  </h4>
+                  <h4>
+                    Region: <span>{country.region}</span>
+                  </h4>
+                  <h4>
+                    Capital: <span>{country.capital}</span>
+                  </h4>
                 </div>
-              </article>
-        </section>
-      ))}
+              </div>
+              </Link>
+            </article>
+          ))}
+    
+      </section>
     </>
   );
 }

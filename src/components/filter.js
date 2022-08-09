@@ -17,10 +17,10 @@ export default function Filter({countries, regions, setSearchInput, searchInput,
             onChange={(e) => setSearchInput(e.target.value)}
           ></input>
         
-        <div className="select">
-        <select onChange={(e) => setRegionInput(e.target.value)}>
+        <div className="select" id="select">
+        <select className="region" onChange={(e) => setRegionInput(e.target.value)}>
         {regions.map((reg) => (
-          <option key={reg}>{reg}</option>
+          <option key={reg} className='region-option'>{reg} </option>
         ))}
       </select>
         </div>

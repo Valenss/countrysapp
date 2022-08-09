@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
 :root {
   --dark-bg-color: hsl(207, 26%, 17%);
   --article-color: hsl(209, 23%, 22%);
@@ -5,12 +8,15 @@
   --light-mode-text: hsl(200, 15%, 8%);
   --light-mode-input: hsl(0, 0%, 52%);
   --light-mode-background: hsl(0, 0%, 98%);
+
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Nunito Sans', sans-serif;
+
 }
 
 img {
@@ -27,18 +33,22 @@ a {
 
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   background-color: var(--dark-bg-color);
   color: var(--text-color);
   transition: background-color 0.4s;
 }
 
-body.light-theme {
-  background-color: var(--light-mode-background);
-  color: var(--light-mode-text);
+#light {
+  background-color:var(--light-mode-background) ;
 }
+
+#light body , #light header , #light .details , #light #search , #light .region {
+background-color:var(--light-mode-background) ;
+color: var(--light-mode-text);
+}
+
+
+
 
 
 /* Overvall padding */
@@ -59,13 +69,16 @@ body.light-theme {
   box-shadow: 0 5px 10px hsla(200, 15%, 8%, 0.1);
 }
 
+#search, .region{
+  box-shadow: 0 5px 10px hsla(200, 15%, 8%, 0.1);
+
+}
+
+
 .header i {
   cursor: pointer;
 }
-.header.light-theme{
-  background-color: var(--light-mode-background);
-  color: var(--light-mode-text);
-}
+
 /* Form component */
 .form {
   display: flex;
@@ -89,14 +102,9 @@ body.light-theme {
   color: var(--text-color);
 }
 
-.form input.light-theme,
-.form select.light-theme {
-  background-color: var(--light-mode-input);
-}
 
-.form input.light-theme, .form select.light-theme{
-  background-color: var(--light-mode-background);
-}
+
+
 /* Countries component */
 .countries {
   padding: 0 50px 50px;
@@ -104,11 +112,16 @@ body.light-theme {
 
 .countries article {
   transition: background-color 0.4s;
+  border-radius: 5px;
+  box-shadow:  0 5px 10px hsla(200, 15%, 8%, 0.1);
 }
 
-.countries .flag img {
+.flag {
   border-radius: 5px 5px 0 0;
+
 }
+
+
 
 .countries .details {
   border-radius: 0 0 5px 5px;
@@ -119,7 +132,7 @@ body.light-theme {
   transition: background-color 0.4s;
 }
 
-.countries .details.light-theme {
+.countries .details.light-theme{
   background-color: var(--light-mode-background);
   color: var(--light-mode-text);
 }
@@ -132,12 +145,7 @@ body.light-theme {
   font-weight: 300;
 }
 
-/* BUTTONS */
-.buttons{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 
 .btn {
   background-color: var(--dark-bg-color);
@@ -161,27 +169,25 @@ body.light-theme {
 }
 
 /* Media queries */
-@media (min-width: 640px) {
-  .countries {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
+@media (min-width: 620px) {
+.countries{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
+  gap: 60px;
+}
   .countries .details {
     margin: -10px 0 0;
   }
-}
 
-@media (min-width: 992px) {
-  .countries {
-    grid-template-columns: repeat(3, 1fr);
+  .flag{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center center;
   }
-}
-
-@media (min-width: 1366px) {
-  .countries {
-    grid-template-columns: repeat(4, 1fr);
+  .countries article{
+    max-width: 300px;
   }
 }
 
