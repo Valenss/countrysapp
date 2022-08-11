@@ -1,6 +1,6 @@
 import React from 'react';
 import App from '../App';
-export default function Header({toggleTheme, theme, setTheme}) {
+export default function Header({toggleTheme, theme}) {
   return (
     <>
         <header className='header'>

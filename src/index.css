@@ -43,7 +43,7 @@ body {
 }
 
 #light body , #light header , #light .details , #light #search , #light .region {
-background-color:var(--light-mode-background) ;
+background-color:var( --light-mode-background) ;
 color: var(--light-mode-text);
 }
 
@@ -67,6 +67,11 @@ color: var(--light-mode-text);
   color: var(--text-color);
   background-color: hsl(209, 23%, 22%);
   box-shadow: 0 5px 10px hsla(200, 15%, 8%, 0.1);
+  height: 80px;
+}
+
+header h1{
+  font-size: 28px;
 }
 
 #search, .region{
@@ -169,12 +174,13 @@ color: var(--light-mode-text);
 }
 
 /* Media queries */
-@media (min-width: 620px) {
+@media (min-width: 760px) {
 .countries{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-  gap: 60px;
+  grid-template-columns:  repeat(auto-fill, minmax(330px, 1fr));
+  row-gap: 80px;
+  column-gap: 60px;
+justify-items:center;
 }
   .countries .details {
     margin: -10px 0 0;
@@ -189,6 +195,8 @@ color: var(--light-mode-text);
   .countries article{
     max-width: 300px;
   }
+
+  
 }
 
 @media (max-width: 500px) {

@@ -42,7 +42,7 @@ const Country = () => {
                 <div className="country-flag">
                   <img src={flag}></img>
                 </div>
-                <div>
+                <div className="country-info">
                   <div className="country-details">
                     <div>
                       <h2>{name}</h2>
@@ -67,25 +67,26 @@ const Country = () => {
                         Top level domain: <span>{topLevelDomain}</span>
                       </h5>
                       <h5>
-                        Currencies: <span>{currencies[0].name}</span>
+                        Currencies: <span>{currencies?.length > 0 ? ( currencies[0].name) : ('No currencies founded')}</span>
                       </h5>
                       <h5>
-                        Lenguages: <span>{languages[0].name}</span>
+                        Lenguages: <span>{languages?.length > 0 ? ( languages[0]?.name) : ('No lenguajes founded')}</span>
                       </h5>
                     </div>
                  
                   </div>
 
                   <div>
-                      <h3>Border Countries:</h3>
-
+                
                       <div className="borders">
+                        <h3>Border Countries:</h3>
+                        <div>
                         {borders?.length > 0 ? (
                           borders?.map((border) => {
                             return (
                               <ul key={border}>
-                                <Link to={`/country/${border.toLowerCase()}`}>
-                                  <li className="borders-li">{border}</li>{" "}
+                                <Link to={`/country/${border}`}>
+                                  <li className="borders-li">{border}</li>
                                 </Link>
                               </ul>
                             );
@@ -95,6 +96,7 @@ const Country = () => {
                             There is no border countries
                           </p>
                         )}
+                        </div>
                       </div>
                     </div>
                 </div>
