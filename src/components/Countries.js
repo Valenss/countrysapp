@@ -53,6 +53,8 @@ export default function Countries() {
     return filtered;
   }, [countries, searchInput, regionInput]);
 
+  
+
   return (
     <>
       <Filter
@@ -73,6 +75,7 @@ export default function Countries() {
             <article key={country.numericCode}>
                <Link
           to={`/country/${country.name}`}
+          countries={countries}
          
           key={country.numericCode}
         >

@@ -15,6 +15,17 @@ const Country = () => {
     };
     fetchCountryData();
   }, [name]);
+
+  function searchCountry(code,countries) {
+    let name;
+    for (let i = 0; i < countries.length; i++) {
+      if (countries[i].cca3 == code) {
+        name = countries[i].name.common;
+      }
+    }
+    return name;
+  }
+
   return (
     <>
       <section className="country">
@@ -85,8 +96,8 @@ const Country = () => {
                           borders?.map((border) => {
                             return (
                               <ul key={border}>
-                                <Link to={`/country/${border}`}>
-                                  <li className="borders-li">{border}</li>
+                                <Link to={`/country/${searchCountry}`}>
+                                  <li className="borders-li">{searchCountry}</li>
                                 </Link>
                               </ul>
                             );
