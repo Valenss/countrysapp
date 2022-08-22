@@ -13,7 +13,7 @@ export default function Filter({countries, regions, setSearchInput, searchInput,
             name="search"
             id="search"
             value={searchInput}
-            placeholder="Search for a country"
+            placeholder="Search for a country by name or capital"
             onChange={(e) => setSearchInput(e.target.value)}
           ></input>
         

@@ -10,7 +10,6 @@ const Country = () => {
     const fetchCountryData = async () => {
       const response = await fetch( name.length === 3 ?`https://restcountries.com/v2/alpha/${name}` :`https://restcountries.com/v2/name/${name}`);
       const country = await response.json();
-      
       if (name.length === 3){
         setCountry([country]);
       }else{
@@ -21,6 +20,7 @@ const Country = () => {
   }, [name]);
 
   return (
+    
     <>
       <section className="country">
         <Link to="/" className="btn btn-light">
@@ -41,6 +41,7 @@ const Country = () => {
             languages,
             borders,
           } = c;
+          document.title = (`${name} `)
           return (
             <article key={numericCode}>
               <div className="country-inner">

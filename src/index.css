@@ -195,8 +195,6 @@ justify-items:center;
   .countries article{
     max-width: 300px;
   }
-
-  
 }
 
 @media (max-width: 500px) {

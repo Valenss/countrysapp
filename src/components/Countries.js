@@ -49,14 +49,16 @@ export default function Countries() {
           country.capital?.toLowerCase().includes(searchInput?.toLowerCase())) &&
         country.region.includes(regionInput === "All" ? "" : regionInput)
     );
+    document.title = (`Home`)
 
     return filtered;
   }, [countries, searchInput, regionInput]);
 
   
-
+ 
   return (
     <>
+    
       <Filter
         searchInput={searchInput}
         setCountries={setCountries}
