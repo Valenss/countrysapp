@@ -45,8 +45,8 @@ export default function Countries() {
   const filteredCountries = useCallback(() => {
     const filtered = countries.filter(
       (country) =>
-        (country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-          country.capital?.toLowerCase().includes(searchInput.toLowerCase())) &&
+        (country.name?.toLowerCase().includes(searchInput?.toLowerCase()) ||
+          country.capital?.toLowerCase().includes(searchInput?.toLowerCase())) &&
         country.region.includes(regionInput === "All" ? "" : regionInput)
     );
 

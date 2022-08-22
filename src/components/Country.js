@@ -8,23 +8,17 @@ const Country = () => {
 
   useEffect(() => {
     const fetchCountryData = async () => {
-      const response = await fetch(`https://restcountries.com/v2/name/${name}
-      `);
+      const response = await fetch( name.length === 3 ?`https://restcountries.com/v2/alpha/${name}` :`https://restcountries.com/v2/name/${name}`);
       const country = await response.json();
-      setCountry(country);
+      
+      if (name.length === 3){
+        setCountry([country]);
+      }else{
+        setCountry(country);
+      }
     };
     fetchCountryData();
   }, [name]);
-
-  function searchCountry(code,countries) {
-    let name;
-    for (let i = 0; i < countries.length; i++) {
-      if (countries[i].cca3 == code) {
-        name = countries[i].name.common;
-      }
-    }
-    return name;
-  }
 
   return (
     <>
@@ -53,7 +47,7 @@ const Country = () => {
                 <div className="country-flag">
                   <img src={flag}></img>
                 </div>
-                <div className="country-info">
+                <div>
                   <div className="country-details">
                     <div>
                       <h2>{name}</h2>
@@ -96,8 +90,8 @@ const Country = () => {
                           borders?.map((border) => {
                             return (
                               <ul key={border}>
-                                <Link to={`/country/${searchCountry}`}>
-                                  <li className="borders-li">{searchCountry}</li>
+                                <Link to={`/country/${border}`}>
+                                  <li className="borders-li">{border}</li>{" "}
                                 </Link>
                               </ul>
                             );
